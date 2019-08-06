@@ -1,9 +1,25 @@
 <template>
   <div id="app">
-    <router-view/>
+    <Header/>
+    <PostLists/>
   </div>
 </template>
+<script>
+import Header from './components/Header'
+import PostLists from './components/PostLists'
+export default {
+    data:function(){
+      return {
 
-<style>
+      }
+    },
+    components:{
+      Header,
+      PostLists,
+    }
+}
+</script>
 
+<style scoped>
+  
 </style>
