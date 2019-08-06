@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    
       <img src="../assets/cnodejs_light.svg" alt="picture">
       <ul >
           <li><a href="#">首页</a></li>
