@@ -1,17 +1,26 @@
 <template>
   <div class="airtic_container">
-    <div class="airtic_main">
-      <div class="main_title_container">
-        <span class="main_title">{{airtic_data.title}}</span>
-        <ul>
-          <li>发布于</li>
-          <li>作者</li>
-          <li>浏览</li>
-          <li>来自</li>
-        </ul>
+    <div class="main">
+      <div class="header">
+        <div class="title">
+          <span class="state">{{airtic_data|getAirticleStates}}</span>
+          <span class="title_content">{{airtic_data.title}}</span>
+        </div>
+        <div class="detail">
+          <div class="dot"></div>
+          <span>发布于{{airtic_data.create_at|getTimeDiff}}</span>
+          <div class="dot"></div>
+          <span>作者 {{airtic_data.author.loginname}}</span>
+          <div class="dot"></div>
+          <span>{{airtic_data.visit_count}} 次浏览</span>
+          <div class="dot"></div>
+          <span>来自 {{airtic_data|getAirticleStates}}</span>
+        </div>
+      </div>
+      <div class="content" v-html="airtic_data.content">
+
       </div>
     </div>
-    <div class="airtic_reply"></div>
   </div>
 </template>
 
@@ -27,6 +36,7 @@ export default {
       this.axios
         .get(`https://cnodejs.org/api/v1/topic/${this.$route.params.useId}`)
         .then(res => {
+        console.log("TCL: res", res)
           if (res.status == 200) {
             this.airtic_data = res.data.data;
           }
@@ -40,43 +50,70 @@ export default {
 };
 </script>
 
-<style scoped>
-* {
+<style>
+@import url('../assets/github-markdown.css');
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma,
     "Hiragino Sans GB", STHeiti, sans-serif !important;
+  list-style:none;
+} */
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #797979;
+  margin: 0 4px;
 }
 .airtic_container {
-  width: 100%;
-  height: 100vh;
-  background-color: #e1e1e1;
-  border:1px solid transparent;
+  background-color: #dddddd;
+  display: flex;
+  justify-content: center;
 }
-.main_title_container {
-  width: 1096px;
-  height: 84px;
-  margin-top:12px;
-   border:1px solid transparent;
+.main {
+  width: 1094px;
+  /* height: 100vh; */
+  background-color: white;
+  margin-top: 16px;
+  border: 1px solid pink;
 }
-.main_title {
+.header {
+  height: 88px;
+  padding-left:16px;
+  border:1px solid #E2E2E2;
+}
+.title {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+.state {
+  padding: 4px;
+  font-size: 12px;
+  background: #80bd01;
+  color: #fff;
+  margin-left:4px;
+}
+.title_content {
+  height: 32px;
   font-size: 22px;
   color: #333333;
-  font-weight: bold;
-  margin-top:22px;
+  font-weight: 700;
+  margin-left: 10px;
 }
-.airtic_main {
-  width: 1400px;
-  background-color: #ffffff;
-  margin: auto;
-}
-ul {
+.detail {
+  height: 20px;
+  font-size: 12px;
+  margin-top: 8px;
   display: flex;
-  margin-bottom:-20px;
+  color:#838383;
+  align-items: center;
 }
-li {
-  list-style: none;
-  margin: 0 2px;
+.content {
+  padding:0 10px;
 }
 </style>
