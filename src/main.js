@@ -10,15 +10,6 @@ Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 
 
-
-new Vue({
-  router,
-  store,
-  render: function (h) {
-    return h(App)
-  }
-}).$mount('#app')
-
 /**
  * @description: 通过时间戳返回距离现在多少时间
  * @param {type} 
@@ -42,7 +33,11 @@ Vue.filter('getTimeDiff', function (value) {
     return parseInt(diffDate / (3600 * 24 * 30 * 12)) + ` 年前`
   }
 })
-
+/**
+ * @description: 通过数据匹配返还字符串
+ * @param {type} 
+ * @return: 
+ */
 Vue.filter('getAirticleStates', function (value) {
   if (value.top === true) {
     return '置顶'
@@ -56,3 +51,11 @@ Vue.filter('getAirticleStates', function (value) {
     return '招聘'
   }
 })
+
+new Vue({
+  router,
+  store,
+  render: function (h) {
+    return h(App)
+  }
+}).$mount('#app')

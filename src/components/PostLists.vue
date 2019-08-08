@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <div class="main">
+    <div class="loading" v-if="loading">
+      <img src="../assets/loading.gif" />
+    </div>
+    <div class="main" v-else>
       <ul>
         <li class="navbar">
           <span>全部</span>
@@ -23,7 +26,10 @@
               job:(item.tab != 'ask' && item.tab != 'share')}"
             >{{item | getAirticleStates}}</span>
           </div>
-          <router-link :to="{name:'airticle',params:{useId:item.id}}" class="link_to_airticle">
+          <router-link
+            :to="{name:'airticle',params:{useId:item.id,loginName:item.author.loginname}}"
+            class="link_to_airticle"
+          >
             <div class="title">{{item.title}}</div>
           </router-link>
           <div class="last_reply_at">{{item.last_reply_at | getTimeDiff}}</div>
@@ -37,7 +43,8 @@
 export default {
   data() {
     return {
-      mainData: []
+      mainData: [],
+      loading: true
     };
   },
   beforeMount: function() {
@@ -47,13 +54,10 @@ export default {
     getData: function() {
       var url = "https://cnodejs.org/api/v1/topics";
       this.axios
-        .get(url, {
-          params: {}
-        })
+        .get(url, {})
         .then(res => {
           this.mainData = res.data.data;
-          var date = res.data.data[0].last_reply_at;
-          var f = new Date(date).getTime();
+          this.loading = false;
         })
         .catch(err => {});
     }
@@ -68,8 +72,17 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
+
 .container {
   background-color: #e1e1e1;
+}
+.loading {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #dddddd;
 }
 .main {
   width: 1400px;
@@ -159,17 +172,18 @@ div.last_reply_at {
 .link_to_airticle {
   text-decoration: none;
 }
-.link_to_airticle:link{
-  color:#333333;
+.link_to_airticle:link {
+  color: #333333;
 }
 .link_to_airticle:visited {
-  color:#888888;
+  color: #888888;
 }
 .link_to_airticle:hover {
-  text-decoration:underline;
+  text-decoration: underline;
   /* color:#888; */
 }
 .link_to_airticle:active {
-  color:red;
+  color: red;
 }
+
 </style>

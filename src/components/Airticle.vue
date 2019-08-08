@@ -1,6 +1,9 @@
 <template>
   <div class="airtic_container">
-    <div class="main">
+    <div class="loading" v-if="loading">
+      <img src="../assets/loading.gif" />
+    </div>
+    <div class="main" v-else>
       <div class="header">
         <div class="title">
           <span class="state">{{airtic_data|getAirticleStates}}</span>
@@ -17,16 +20,16 @@
           <span>来自 {{airtic_data|getAirticleStates}}</span>
         </div>
       </div>
-      <div class="content" v-html="airtic_data.content"></div>
+      <div class="markdown-body" v-html="airtic_data.content"></div>
       <div class="reply_comment">
         <div class="reply_count">
           <span v-if="replies.length>0">{{replies.length}} 回复</span>
         </div>
         <ul class="reply_content_ul">
-          <li v-for="(item,index) in replies" :key="item.id" class="reply_content">
+          <li v-for="(item,index) in airtic_data.replies" :key="item.id" class="reply_content">
             <div class="reply_content_top">
-              <img src="item.author.avatar_url" class="img_photo" />
-              <span>{{item.loginname}}</span>
+              <img :src="item.author.avatar_url" class="img_photo" />
+              <span>{{item.author.loginname}}</span>
               <span>{{index+1}}楼</span>
               <div class="dot"></div>
               <span>{{item.create_at|getTimeDiff}}</span>
@@ -49,7 +52,7 @@ export default {
   data: function() {
     return {
       airtic_data: {},
-      replies: []
+      loading: true
     };
   },
   methods: {
@@ -57,13 +60,14 @@ export default {
       this.axios
         .get(`https://cnodejs.org/api/v1/topic/${this.$route.params.useId}`)
         .then(res => {
-          console.log("TCL: res", res);
-          if (res.status == 200) {
+          if (res.status === 200) {
+            this.loading = false;
             this.airtic_data = res.data.data;
             this.replies = res.data.data.replies;
           }
         })
-        .catch(err => {});
+        .catch(err => {
+        });
     }
   },
   beforeMount: function() {
@@ -79,7 +83,7 @@ export default {
   text-decoration: none;
   box-sizing: border-box;
 }
-@import url("../assets/github-markdown.css");
+@import url("../assets/github-markdown-css.css");
 
 .dot {
   width: 5px;
@@ -93,7 +97,15 @@ export default {
   background-color: #dddddd;
   display: flex;
   justify-content: center;
-  min-height: 1000px;
+  width: 1094px;
+}
+.loading {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #dddddd;
 }
 .main {
   width: 1094px;
@@ -134,7 +146,11 @@ export default {
   color: #838383;
   align-items: center;
 }
-.content {
+.markdown-body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 1094px;
+  margin: 0 auto;
   padding: 0 10px;
   border: 1px solid #e2e2e2;
   background-color: white;
@@ -177,15 +193,15 @@ export default {
   height: 30px;
 }
 .like_right {
-  position:absolute;
-  right:12px;
-  display:flex;
+  position: absolute;
+  right: 12px;
+  display: flex;
   align-items: center;
 }
 .like_right > .img_like {
   width: 14px;
   height: 15px;
-  margin-right:4px;
+  margin-right: 4px;
 }
 .reply_content_top > span {
   font-size: 12px;
@@ -193,8 +209,8 @@ export default {
   margin-left: 4px;
 }
 .like_right > .like_count {
-  color:#808080;
-  font-size:15px;
+  color: #808080;
+  font-size: 15px;
 }
 .reply_content_top > .dot {
   background-color: #005580;
@@ -203,9 +219,6 @@ export default {
   color: #333333;
   font-size: 15px;
   margin: 0 60px 0;
-}
-.reply_content_bottom > p {
-  margin: 0;
 }
 /* 回复css结束 */
 </style>
