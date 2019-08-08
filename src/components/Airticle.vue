@@ -17,8 +17,28 @@
           <span>来自 {{airtic_data|getAirticleStates}}</span>
         </div>
       </div>
-      <div class="content" v-html="airtic_data.content">
+      <div class="content" v-html="airtic_data.content"></div>
+      <div class="reply_comment">
+        <div class="reply_count">
+          <span v-if="replies.length>0">{{replies.length}} 回复</span>
+        </div>
+        <ul class="reply_content_ul">
+          <li v-for="(item,index) in replies" :key="item.id" class="reply_content">
+            <div class="reply_content_top">
+              <img src="item.author.avatar_url" class="img_photo" />
+              <span>{{item.loginname}}</span>
+              <span>{{index+1}}楼</span>
+              <div class="dot"></div>
+              <span>{{item.create_at|getTimeDiff}}</span>
+              <div class="like_right" v-if="item.ups.length>0">
+                <img src="../assets/like.svg" class="img_like" />
+                <span class="like_count">{{item.ups.length}}</span>
+              </div>
+            </div>
 
+            <div v-html="item.content" class="reply_content_bottom"></div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -28,7 +48,8 @@
 export default {
   data: function() {
     return {
-      airtic_data: {}
+      airtic_data: {},
+      replies: []
     };
   },
   methods: {
@@ -36,9 +57,10 @@ export default {
       this.axios
         .get(`https://cnodejs.org/api/v1/topic/${this.$route.params.useId}`)
         .then(res => {
-        console.log("TCL: res", res)
+          console.log("TCL: res", res);
           if (res.status == 200) {
             this.airtic_data = res.data.data;
+            this.replies = res.data.data.replies;
           }
         })
         .catch(err => {});
@@ -51,15 +73,14 @@ export default {
 </script>
 
 <style>
-@import url('../assets/github-markdown.css');
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+* {
   font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma,
     "Hiragino Sans GB", STHeiti, sans-serif !important;
-  list-style:none;
-} */
+  text-decoration: none;
+  box-sizing: border-box;
+}
+@import url("../assets/github-markdown.css");
+
 .dot {
   width: 5px;
   height: 5px;
@@ -72,18 +93,18 @@ export default {
   background-color: #dddddd;
   display: flex;
   justify-content: center;
+  min-height: 1000px;
 }
 .main {
   width: 1094px;
-  /* height: 100vh; */
-  background-color: white;
+  background-color: #dddddd;
   margin-top: 16px;
-  border: 1px solid pink;
 }
 .header {
   height: 88px;
-  padding-left:16px;
-  border:1px solid #E2E2E2;
+  padding-left: 16px;
+  border: 1px solid #e2e2e2;
+  background-color: white;
 }
 .title {
   height: 32px;
@@ -96,7 +117,7 @@ export default {
   font-size: 12px;
   background: #80bd01;
   color: #fff;
-  margin-left:4px;
+  margin-left: 4px;
 }
 .title_content {
   height: 32px;
@@ -110,10 +131,81 @@ export default {
   font-size: 12px;
   margin-top: 8px;
   display: flex;
-  color:#838383;
+  color: #838383;
   align-items: center;
 }
 .content {
-  padding:0 10px;
+  padding: 0 10px;
+  border: 1px solid #e2e2e2;
+  background-color: white;
 }
+/* 回复css开始 */
+.reply_comment {
+  width: 1094px;
+  margin-top: 12px;
+  background-color: #f6f6f6;
+  margin-bottom: 20px;
+  color: #444444;
+  font-size: 14px;
+}
+.reply_count > span {
+  height: 40px;
+  border: 1px solid #f0f0f0;
+  background-color: #f6f6f6;
+}
+.reply_count > span {
+  margin-left: 10px;
+  line-height: 40px;
+}
+.reply_content_ul {
+  padding: 0;
+  margin: 0;
+}
+.reply_content {
+  border: 1px solid #f0f0f0;
+  list-style: none;
+  background-color: #ffffff;
+}
+.reply_content_top {
+  display: flex;
+  align-items: center;
+  margin: 10px 0px 0px 10px;
+  position: relative;
+}
+.reply_content_top > .img_photo {
+  width: 30px;
+  height: 30px;
+}
+.like_right {
+  position:absolute;
+  right:12px;
+  display:flex;
+  align-items: center;
+}
+.like_right > .img_like {
+  width: 14px;
+  height: 15px;
+  margin-right:4px;
+}
+.reply_content_top > span {
+  font-size: 12px;
+  color: #0088cc;
+  margin-left: 4px;
+}
+.like_right > .like_count {
+  color:#808080;
+  font-size:15px;
+}
+.reply_content_top > .dot {
+  background-color: #005580;
+}
+.reply_content_bottom {
+  color: #333333;
+  font-size: 15px;
+  margin: 0 60px 0;
+}
+.reply_content_bottom > p {
+  margin: 0;
+}
+/* 回复css结束 */
 </style>

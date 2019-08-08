@@ -37,7 +37,7 @@ Vue.filter('getTimeDiff', function (value) {
   } else if (diffDate > 3600 * 24 && diffDate < 3600 * 24 * 30) {
     return parseInt(diffDate / (3600 * 24)) + ` 天前`
   } else if (diffDate > 3600 * 24 * 30 && diffDate < 3600 * 24 * 30 * 12) {
-    return parseInt(diffDate / (3600 * 24 * 30)) + ` 月前`
+    return parseInt(diffDate / (3600 * 24 * 30)) + ` 个月前`
   } else if (diffDate > 3600 * 24 * 30 * 12) {
     return parseInt(diffDate / (3600 * 24 * 30 * 12)) + ` 年前`
   }
