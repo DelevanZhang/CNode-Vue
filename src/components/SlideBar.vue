@@ -1,3 +1,10 @@
+<!--
+ * @Description: In User Settings Edite
+ * @Author: your name
+ * @Date: 2019-08-08 14:59:43
+ * @LastEditTime: 2019-08-09 14:08:31
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
   <div class="container">
     <div class="main_author">
@@ -5,12 +12,12 @@
         <span>作者</span>
       </div>
       <div class="img_name">
-        <img :src="post.avatar_url"/>
+        <img :src="post.avatar_url" />
         <span>{{post.loginname}}</span>
       </div>
       <div class="integral">积分:{{post.score}}</div>
     </div>
-    <div class="main_recent_replies" >
+    <div class="main_recent_replies">
       <div class="recent_topics_title">最近创建的话题</div>
       <ul>
         <li v-for="topic in post.recent_topics" :key="topic.id">
@@ -68,7 +75,7 @@ export default {
 .container {
   width: 294px;
   margin: 16px 0 0 16px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 .author {
   height: 40px;
@@ -97,12 +104,12 @@ export default {
   padding: 10px;
 }
 .main_recent_replies {
-  color:#778087;
-  font-size:14px;
+  color: #778087;
+  font-size: 14px;
 }
 
-.main_recent_replies > ul >li {
-  list-style:none;
+.main_recent_replies > ul > li {
+  list-style: none;
   padding: 5px 10px;
 }
 .recent_topics_title {
@@ -111,6 +118,6 @@ export default {
   font-size: 14px;
   color: #333333;
   background-color: #f6f6f6;
-  padding:0 10px;
+  padding: 0 10px;
 }
 </style>

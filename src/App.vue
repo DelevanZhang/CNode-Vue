@@ -1,6 +1,13 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-06 10:25:32
+ * @LastEditTime: 2019-08-09 14:21:57
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
   <div id="app">
-    <Header />
+    <Header/>
     <!-- <router-view></router-view> -->
     <div class="theme_details_container">
       <router-view name="main"></router-view>

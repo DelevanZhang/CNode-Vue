@@ -1,10 +1,19 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-06 10:25:32
+ * @LastEditTime: 2019-08-09 14:22:22
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
   <div class="Header">
     <div class="container">
       <img src="../assets/cnodejs_light.svg" alt="picture" />
       <ul>
         <li>
-          <a href="#">首页</a>
+          <router-link :to="{name:'postList',params:{}}">
+            <a href="#">首页</a>
+          </router-link>
         </li>
         <li>
           <a href="#">新手入门</a>

@@ -1,3 +1,10 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-07 14:32:26
+ * @LastEditTime: 2019-08-09 14:25:29
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
   <div class="airtic_container">
     <div class="loading" v-if="loading">
@@ -28,7 +35,9 @@
         <ul class="reply_content_ul">
           <li v-for="(item,index) in airtic_data.replies" :key="item.id" class="reply_content">
             <div class="reply_content_top">
-              <img :src="item.author.avatar_url" class="img_photo"/>
+              <router-link :to="{name:'user',params:{loginname:item.author.loginname}}">
+                <img :src="item.author.avatar_url" class="img_photo" />
+              </router-link>
               <span>{{item.author.loginname}}</span>
               <span>{{index+1}}楼</span>
               <div class="dot"></div>
@@ -66,12 +75,16 @@ export default {
             this.replies = res.data.data.replies;
           }
         })
-        .catch(err => {
-        });
+        .catch(err => {});
     }
   },
   beforeMount: function() {
     this.getAirticleData();
+  },
+  watch: {
+    $route(to, from) {
+      this.getAirticleData();
+    }
   }
 };
 </script>
@@ -221,7 +234,7 @@ export default {
   margin: 0 60px 0;
 }
 .markdown-text img {
-    width: 92% !important;
-  }
+  width: 92% !important;
+}
 /* 回复css结束 */
 </style>
