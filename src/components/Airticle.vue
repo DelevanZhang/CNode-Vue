@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-07 14:32:26
- * @LastEditTime: 2019-08-09 14:25:29
+ * @LastEditTime: 2019-08-09 19:23:34
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -35,7 +35,10 @@
         <ul class="reply_content_ul">
           <li v-for="(item,index) in airtic_data.replies" :key="item.id" class="reply_content">
             <div class="reply_content_top">
-              <router-link :to="{name:'user',params:{loginname:item.author.loginname}}">
+              <router-link
+                :to="{name:'user',params:{loginname:item.author.loginname}}"
+                class="router_img"
+              >
                 <img :src="item.author.avatar_url" class="img_photo" />
               </router-link>
               <span>{{item.author.loginname}}</span>
@@ -201,7 +204,7 @@ export default {
   margin: 10px 0px 0px 10px;
   position: relative;
 }
-.reply_content_top > .img_photo {
+.reply_content_top > .router_img > .img_photo {
   width: 30px;
   height: 30px;
 }

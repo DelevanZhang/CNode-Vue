@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-06 10:25:32
- * @LastEditTime: 2019-08-09 14:22:22
+ * @LastEditTime: 2019-08-09 19:02:20
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -11,7 +11,7 @@
       <img src="../assets/cnodejs_light.svg" alt="picture" />
       <ul>
         <li>
-          <router-link :to="{name:'postList',params:{}}">
+          <router-link :to="{name:'postList'}">
             <a href="#">首页</a>
           </router-link>
         </li>

@@ -1,3 +1,10 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-09 09:24:39
+ * @LastEditTime: 2019-08-09 19:19:05
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
   <div class="usrContainer">
     <div class="loading" v-if="loading">

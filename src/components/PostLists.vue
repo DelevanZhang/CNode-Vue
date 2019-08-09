@@ -1,3 +1,10 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-06 13:52:13
+ * @LastEditTime: 2019-08-09 20:09:24
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
   <div class="container">
     <div class="loading" v-if="loading">
@@ -37,31 +44,42 @@
           <div class="last_reply_at">{{item.last_reply_at | getTimeDiff}}</div>
         </li>
       </ul>
+      <PagingDevice @handlePage="jumpPage"></PagingDevice>
     </div>
   </div>
 </template>
 
 <script>
+import PagingDevice from "./PagingDevice";
 export default {
   data() {
     return {
       mainData: [],
-      loading: true
+      loading: true,
+      page:1
     };
+  },
+  components: {
+    PagingDevice
   },
   beforeMount: function() {
     this.getData();
   },
   methods: {
     getData: function() {
-      var url = "https://cnodejs.org/api/v1/topics";
+      var url = `https://cnodejs.org/api/v1/topics`;
       this.axios
-        .get(url, {})
+        .get(url, { params: { limit: 16,page:this.page} })
         .then(res => {
           this.mainData = res.data.data;
           this.loading = false;
         })
         .catch(err => {});
+    },
+    jumpPage: function(value) {
+      console.log(value)
+      this.page = value+1;
+      this.getData()
     }
   },
   computed: {}
@@ -88,7 +106,6 @@ export default {
 }
 .main {
   width: 1400px;
-  height: 100%;
   background-color: #f5f5f5;
   margin: 0 auto;
 }
