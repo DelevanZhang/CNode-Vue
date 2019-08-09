@@ -28,7 +28,7 @@
         <ul class="reply_content_ul">
           <li v-for="(item,index) in airtic_data.replies" :key="item.id" class="reply_content">
             <div class="reply_content_top">
-              <img :src="item.author.avatar_url" class="img_photo" />
+              <img :src="item.author.avatar_url" class="img_photo"/>
               <span>{{item.author.loginname}}</span>
               <span>{{index+1}}楼</span>
               <div class="dot"></div>
@@ -220,5 +220,8 @@ export default {
   font-size: 15px;
   margin: 0 60px 0;
 }
+.markdown-text img {
+    width: 92% !important;
+  }
 /* 回复css结束 */
 </style>

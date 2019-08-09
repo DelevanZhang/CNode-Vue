@@ -14,7 +14,9 @@
           <span>客户端测试</span>
         </li>
         <li v-for="item in mainData" :key="item.id">
-          <img :src="item.author.avatar_url" />
+          <router-link :to="{name:'user',params:{loginname:item.author.loginname}}">
+            <img :src="item.author.avatar_url" />
+          </router-link>
           <div class="statistics">
             <span class="reply_count">{{item.reply_count}}</span>
             <span class="count_sepertor">/</span>
@@ -185,5 +187,4 @@ div.last_reply_at {
 .link_to_airticle:active {
   color: red;
 }
-
 </style>
