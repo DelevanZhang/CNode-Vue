@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-06 10:25:32
- * @LastEditTime: 2019-08-09 19:24:25
+ * @LastEditTime: 2019-08-10 10:44:33
  * @LastEditors: Please set LastEditors
  */
 import Vue from 'vue'
@@ -11,6 +11,7 @@ import PostLists from './components/PostLists'
 import Airticle from './components/Airticle'
 import SlideBAr from './components/SlideBar.vue'
 import UserInfo from './components/UserInfo.vue'
+import Good from './components/good.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -19,6 +20,13 @@ export default new Router({
       name:'postList',
       components: {
         main:PostLists,
+      }
+    },
+    {
+      path:'/postList/?tab=:tab',
+      name:'good',
+      components:{
+        main:Good,
       }
     },
     {

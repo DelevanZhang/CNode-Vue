@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-06 10:25:32
- * @LastEditTime: 2019-08-09 19:02:20
+ * @LastEditTime: 2019-08-10 09:50:18
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -16,19 +16,16 @@
           </router-link>
         </li>
         <li>
-          <a href="#">新手入门</a>
+          <a href="#">精华</a>
         </li>
         <li>
-          <a href="#">API</a>
+          <a href="#">分享</a>
         </li>
         <li>
-          <a href="#">关于</a>
+          <a href="#">回答</a>
         </li>
         <li>
-          <a href="#">注册</a>
-        </li>
-        <li>
-          <a href="#">登录</a>
+          <a href="#">招聘</a>
         </li>
       </ul>
     </div>

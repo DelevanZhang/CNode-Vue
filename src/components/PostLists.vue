@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-06 13:52:13
- * @LastEditTime: 2019-08-09 20:09:24
+ * @LastEditTime: 2019-08-10 10:40:27
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -14,11 +14,12 @@
       <ul>
         <li class="navbar">
           <span>全部</span>
-          <span>精华</span>
+          <router-link :to="{name:'good',params:{tab:'good'}}">
+            <span>精华</span>
+          </router-link>
           <span>分享</span>
           <span>回答</span>
           <span>招聘</span>
-          <span>客户端测试</span>
         </li>
         <li v-for="item in mainData" :key="item.id">
           <router-link :to="{name:'user',params:{loginname:item.author.loginname}}">
@@ -56,7 +57,7 @@ export default {
     return {
       mainData: [],
       loading: true,
-      page:1
+      page: 1
     };
   },
   components: {
@@ -69,7 +70,7 @@ export default {
     getData: function() {
       var url = `https://cnodejs.org/api/v1/topics`;
       this.axios
-        .get(url, { params: { limit: 16,page:this.page} })
+        .get(url, { params: { limit: 16, page: this.page } })
         .then(res => {
           this.mainData = res.data.data;
           this.loading = false;
@@ -77,9 +78,9 @@ export default {
         .catch(err => {});
     },
     jumpPage: function(value) {
-      console.log(value)
-      this.page = value+1;
-      this.getData()
+      console.log(value);
+      this.page = value + 1;
+      this.getData();
     }
   },
   computed: {}
@@ -120,7 +121,7 @@ li {
   position: relative;
 }
 
-.navbar > span {
+.navbar span {
   padding: 0 13px;
   color: #80bd01;
   font-size: 14px;
