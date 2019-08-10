@@ -2,17 +2,19 @@
  * @Description: In User Settings Edite
  * @Author: your name
  * @Date: 2019-08-08 14:59:43
- * @LastEditTime: 2019-08-09 14:08:31
+ * @LastEditTime: 2019-08-10 16:24:20
  * @LastEditors: Please set LastEditors
  -->
 <template>
-  <div class="container">
+  <div class="container" v-if="loading">
     <div class="main_author">
       <div class="author">
         <span>作者</span>
       </div>
       <div class="img_name">
+        <router-link :to="{name:'user',params:{loginname:post.loginname}}">
         <img :src="post.avatar_url" />
+        </router-link>
         <span>{{post.loginname}}</span>
       </div>
       <div class="integral">积分:{{post.score}}</div>
@@ -44,7 +46,8 @@
 export default {
   data: function() {
     return {
-      post: {}
+      post: {},
+      loading:false
     };
   },
   beforeMount: function() {
@@ -53,12 +56,17 @@ export default {
   methods: {
     getData: function() {
       this.axios
-        .get(`https://cnodejs.org/api/v1/user/${this.$route.params.loginName}`)
+        .get(`https://cnodejs.org/api/v1/user/${this.$route.params.loginname}`)
         .then(res => {
           this.post = res.data.data;
-          console.log("TCL: res.data.data", res.data.data);
+          this.loading = true;
         })
         .catch(err => {});
+    }
+  },
+  watch:{
+    'route'(to,from){
+      this.getData()
     }
   }
 };
@@ -94,7 +102,7 @@ export default {
   align-items: center;
   padding: 10px;
 }
-.img_name > img {
+.img_name  img {
   width: 48px;
   height: 48px;
 }

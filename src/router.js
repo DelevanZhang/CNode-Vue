@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-06 10:25:32
- * @LastEditTime: 2019-08-10 10:44:33
+ * @LastEditTime: 2019-08-10 16:28:12
  * @LastEditors: Please set LastEditors
  */
 import Vue from 'vue'
@@ -23,7 +23,7 @@ export default new Router({
       }
     },
     {
-      path:'/postList/?tab=:tab',
+      path:'/good',
       name:'good',
       components:{
         main:Good,
@@ -38,7 +38,7 @@ export default new Router({
     },
     {
       name: 'airticle',
-      path: '/airticle/:useId',
+      path: '/topic/:useId',
       components: {
         main: Airticle,
         slidebar: SlideBAr

@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-06 13:52:13
- * @LastEditTime: 2019-08-10 10:40:27
+ * @LastEditTime: 2019-08-10 16:15:43
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -11,18 +11,10 @@
       <img src="../assets/loading.gif" />
     </div>
     <div class="main" v-else>
+      <Navbar></Navbar>
       <ul>
-        <li class="navbar">
-          <span>全部</span>
-          <router-link :to="{name:'good',params:{tab:'good'}}">
-            <span>精华</span>
-          </router-link>
-          <span>分享</span>
-          <span>回答</span>
-          <span>招聘</span>
-        </li>
         <li v-for="item in mainData" :key="item.id">
-          <router-link :to="{name:'user',params:{loginname:item.author.loginname}}">
+          <router-link :to="{name:'user',params:{useId:item.id,loginname:item.author.loginname}}">
             <img :src="item.author.avatar_url" />
           </router-link>
           <div class="statistics">
@@ -37,7 +29,7 @@
             >{{item | getAirticleStates}}</span>
           </div>
           <router-link
-            :to="{name:'airticle',params:{useId:item.id,loginName:item.author.loginname}}"
+            :to="{name:'airticle',params:{useId:item.id,loginname:item.author.loginname}}"
             class="link_to_airticle"
           >
             <div class="title">{{item.title}}</div>
@@ -52,6 +44,7 @@
 
 <script>
 import PagingDevice from "./PagingDevice";
+import Navbar from "./NavBar";
 export default {
   data() {
     return {
@@ -61,7 +54,8 @@ export default {
     };
   },
   components: {
-    PagingDevice
+    PagingDevice,
+    Navbar: Navbar
   },
   beforeMount: function() {
     this.getData();
@@ -78,7 +72,6 @@ export default {
         .catch(err => {});
     },
     jumpPage: function(value) {
-      console.log(value);
       this.page = value + 1;
       this.getData();
     }
@@ -121,14 +114,10 @@ li {
   position: relative;
 }
 
-.navbar span {
-  padding: 0 13px;
-  color: #80bd01;
-  font-size: 14px;
-}
 img {
   width: 30px;
   height: 30px;
+  margin-left: 12px;
 }
 .statistics {
   width: 70px;

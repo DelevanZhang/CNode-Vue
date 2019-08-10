@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-06 10:25:32
- * @LastEditTime: 2019-08-10 09:50:18
+ * @LastEditTime: 2019-08-10 15:20:05
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -11,21 +11,29 @@
       <img src="../assets/cnodejs_light.svg" alt="picture" />
       <ul>
         <li>
-          <router-link :to="{name:'postList'}">
-            <a href="#">首页</a>
-          </router-link>
+          <router-link :to="{name:'postList',params:{}}">
+          <span>首页</span>
+        </router-link>
         </li>
         <li>
-          <a href="#">精华</a>
+         <router-link :to="{path:'/good',query:{tab:'good'}}">
+          <span>精华</span>
+        </router-link>
         </li>
         <li>
-          <a href="#">分享</a>
+         <router-link :to="{path:'/good',query:{tab:'share'}}">
+          <span>分享</span>
+        </router-link>
         </li>
         <li>
-          <a href="#">回答</a>
+         <router-link :to="{path:'/good',query:{tab:'ask'}}">
+          <span>回答</span>
+        </router-link>
         </li>
         <li>
-          <a href="#">招聘</a>
+         <router-link :to="{path:'/good',query:{tab:'job'}}">
+          <span>招聘</span>
+        </router-link>
         </li>
       </ul>
     </div>

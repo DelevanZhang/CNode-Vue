@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-09 09:24:39
- * @LastEditTime: 2019-08-09 19:19:05
+ * @LastEditTime: 2019-08-10 16:26:33
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -60,13 +60,17 @@ export default {
       this.axios
         .get(`https://cnodejs.org/api/v1/user/${this.$route.params.loginname}`)
         .then(res => {
-          console.log("TCL: res", res);
           this.loading = false;
           this.userInfoData = res.data.data;
         })
         .catch(err => {
           console.log("TCL: err", err);
         });
+    }
+  },
+  watch:{
+    '$route'(to,from){
+      this.getData()
     }
   }
 };
@@ -137,7 +141,7 @@ export default {
 .recent_topics > ul > li {
   list-style: none;
   padding: 12px;
-  font-size: 12px;
+  font-size: 14px;
 }
 /* 最近创建的话题结束 */
 </style>
