@@ -85,4 +85,7 @@ img {
   width: 120px;
   height: 100%;
 }
+span:hover {
+  color:#fff;
+}
 </style>

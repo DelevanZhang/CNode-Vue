@@ -38,7 +38,7 @@ export default new Router({
     },
     {
       name: 'airticle',
-      path: '/topic/:useId',
+      path: '/topic/:useId&loginname:loginname',
       components: {
         main: Airticle,
         slidebar: SlideBAr

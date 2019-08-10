@@ -11,7 +11,7 @@
       <img src="../assets/loading.gif" />
     </div>
     <div class="tab" v-else>
-      <NavBar></NavBar>
+      <NavBar :tab="this.tab"></NavBar>
       <ul>
         <li v-for="item in post" :key="item.id">
           <img :src="item.author.avatar_url" />
@@ -23,7 +23,7 @@
             </div>
           </div>
           <span class="tab_class">{{item|getAirticleStates}}</span>
-          <router-link :to="{name:'airticle',params:{useId:item.id}}" class="link_to_airticle">
+          <router-link :to="{name:'airticle',params:{useId:item.id,loginname:item.author.loginname}}" class="link_to_airticle">
             <div class="content">{{item.title}}</div>
           </router-link>
           <span class="date">{{item.last_reply_at|getTimeDiff}}</span>
@@ -42,12 +42,13 @@ export default {
     return {
       loading: true,
       post: [],
-      page:1
+      page: 1,
+      tab:this.$route.query.tab
     };
   },
   components: {
     NavBar: NavBar,
-    PagingDevice:PagingDevice
+    PagingDevice: PagingDevice
   },
   methods: {
     getData: function() {
@@ -56,7 +57,7 @@ export default {
           params: {
             tab: this.$route.query.tab,
             limit: 16,
-            page:this.page
+            page: this.page
           }
         })
         .then(res => {
@@ -67,9 +68,9 @@ export default {
           console.log("TCL: err", err);
         });
     },
-    changPage:function(value){
-        this.page = value
-        this.getData()
+    changPage: function(value) {
+      this.page = value;
+      this.getData();
     }
   },
   beforeMount: function() {
@@ -78,6 +79,7 @@ export default {
   watch: {
     $route(to, from) {
       this.getData();
+      this.tab = this.$route.query.tab
     }
   }
 };
@@ -101,7 +103,6 @@ export default {
 }
 .tabContainer {
   width: 1400px;
-  border: 1px solid pink;
   background-color: #ffffff;
 }
 li {

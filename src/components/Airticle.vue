@@ -153,6 +153,9 @@ export default {
   color: #333333;
   font-weight: 700;
   margin-left: 10px;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  overflow: hidden;
 }
 .detail {
   height: 20px;

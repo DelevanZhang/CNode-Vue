@@ -11,10 +11,10 @@
       <img src="../assets/loading.gif" />
     </div>
     <div class="main" v-else>
-      <Navbar></Navbar>
+      <Navbar :tab="this.tab"></Navbar>
       <ul>
         <li v-for="item in mainData" :key="item.id">
-          <router-link :to="{name:'user',params:{useId:item.id,loginname:item.author.loginname}}">
+          <router-link :to="{name:'user',params:{loginname:item.author.loginname}}">
             <img :src="item.author.avatar_url" />
           </router-link>
           <div class="statistics">
@@ -50,7 +50,8 @@ export default {
     return {
       mainData: [],
       loading: true,
-      page: 1
+      page: 1,
+      tab:'all'
     };
   },
   components: {
@@ -76,7 +77,11 @@ export default {
       this.getData();
     }
   },
-  computed: {}
+  watch:{
+    '$route'(to,from){
+      this.tab='all'
+    }
+  }
 };
 </script>
 
